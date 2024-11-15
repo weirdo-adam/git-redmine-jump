@@ -1,32 +1,24 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>com.cloudpense.gitredminejump</id>
+    <name>Git Redmine Jump</name>
+    <vendor email="pengfei.li@cloudpense.com" url="https://www.cloudpense.com">cloudpense</vendor>
+    <description>Extract the Redmine task number from the current Git branch name and jump to the corresponding Redmine task page. Keyboard shortcut alt R Quick jump</description>
 
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Gitredminejump</name>
-
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="support@yourcompany.com" url="https://www.yourcompany.com">YourCompany</vendor>
-
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-  ]]></description>
-
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
-
+    <!-- 依赖的模块 -->
     <depends>com.intellij.modules.vcs</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <action id="GitRedmineJumpAction" class="com.example.gitredminejump.GitRedmineJumpAction" text="Go to Redmine Task" description="Extract Redmine task ID and open task page">
-            <add-to-group group-id="GitRemoteOperations" anchor="last"/>
+    <!-- 动作扩展 -->
+    <actions>
+        <action id="GitRedmineJumpAction" class="com.cloudpense.gitredminejump.GitRedmineJumpAction" text="Go to Redmine Task" description="Open redmine task page">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt R"/>
         </action>
+    </actions>
+
+    <!-- 插件设置扩展 -->
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable instance="com.cloudpense.gitredminejump.SettingsConfigurable" displayName="Git Redmine Jump"/>
     </extensions>
 </idea-plugin>

@@ -1,18 +1,23 @@
 package com.cloudpense.gitredminejump;
 
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationGroupManager;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vcs.VcsException;
-import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import git4idea.repo.GitRepository;
 import git4idea.repo.GitRepositoryManager;
 
-import java.awt.Desktop;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.net.URI;
+import java.awt.Desktop;
 
+/**
+ * @author pengfei.li
+ */
 public class GitRedmineJumpAction extends AnAction {
-    private static final String REDMINE_BASE_URL = "https://redmine.cloudpense.com/issues/";
 
     @Override
     public void actionPerformed(AnActionEvent e) {
@@ -21,12 +26,11 @@ public class GitRedmineJumpAction extends AnAction {
             return;
         }
 
-        GitRepositoryManager repositoryManager = GitRepositoryManager.getInstance(project);
-        GitRepository repository = repositoryManager.getRepositoryForFileQuick(project.getBaseDir());
+        // 获取当前 Git 仓库和分支名称
+        GitRepository repository = GitRepositoryManager.getInstance(project).getRepositories().stream().findFirst().orElse(null);
         if (repository == null) {
             return;
         }
-
         String branchName = repository.getCurrentBranchName();
         if (branchName == null) {
             return;
@@ -35,31 +39,44 @@ public class GitRedmineJumpAction extends AnAction {
         // 提取任务编号
         String taskId = extractTaskId(branchName);
         if (taskId == null) {
+            showNotification(project, "Error", "No task ID found in branch name.", NotificationType.WARNING);
             return;
         }
 
-        // 构造 Redmine URL
-        String redmineUrl = REDMINE_BASE_URL + taskId;
-
         // 打开浏览器
-        openInBrowser(redmineUrl);
+        openInBrowser(taskId, project);
+    }
+
+    private void openInBrowser(String taskId, Project project) {
+        String baseUrl = SettingsState.getInstance().redmineBaseUrl; // 获取用户配置的 Redmine 地址
+        if (!baseUrl.endsWith("/")) {
+            baseUrl += "/";
+        }
+        String fullUrl = baseUrl + taskId; // 构建完整的任务 URL
+
+        try {
+            Desktop.getDesktop().browse(new URI(fullUrl)); // 打开系统默认浏览器
+        } catch (Exception ex) {
+            showNotification(project, "Error",  "Failed to open browser: " + ex.getMessage(),
+                    NotificationType.ERROR);
+            ex.printStackTrace();
+        }
     }
 
     private String extractTaskId(String branchName) {
-        // 使用正则表达式提取第一个纯数字部分
-        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\d+");
-        java.util.regex.Matcher matcher = pattern.matcher(branchName);
+        String pattern = SettingsState.getInstance().branchPattern;
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(branchName);
         if (matcher.find()) {
-            return matcher.group(); // 返回第一个匹配的数字
+            return matcher.group();
         }
-        return null; // 未找到任务编号
+        return null;
     }
 
-    private void openInBrowser(String url) {
-        try {
-            Desktop.getDesktop().browse(new URI(url));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    private void showNotification(Project project, String title, String content, NotificationType type) {
+        Notification notification = NotificationGroupManager.getInstance()
+                .getNotificationGroup("Git Redmine Jump Notifications")
+                .createNotification(title, content, type);
+        notification.notify(project);
     }
 }
