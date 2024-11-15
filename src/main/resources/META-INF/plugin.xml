@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>com.cloudpense.gitredminejump</id>
+    <id>com.pengfei.li.gitredminejump</id>
     <name>Git Redmine Jump</name>
-    <vendor email="pengfei.li@cloudpense.com" url="https://www.cloudpense.com">cloudpense</vendor>
+    <vendor email="L_PENGF@163.com" url="https://github.com/weirdo-adam/git-redmine-jump">pengfei.li</vendor>
     <description>Extract the Redmine task number from the current Git branch name and jump to the corresponding Redmine task page. Keyboard shortcut alt R Quick jump</description>
 
     <!-- 依赖的模块 -->
@@ -11,14 +11,14 @@
 
     <!-- 动作扩展 -->
     <actions>
-        <action id="GitRedmineJumpAction" class="com.cloudpense.gitredminejump.GitRedmineJumpAction" text="Go to Redmine Task" description="Open redmine task page">
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="alt R"/>
+        <action id="GitRedmineJumpAction" class="com.monster.gitredminejump.GitRedmineJumpAction" text="Go to Redmine Task" description="Open redmine task page">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt j"/>
         </action>
     </actions>
 
     <!-- 插件设置扩展 -->
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable instance="com.cloudpense.gitredminejump.SettingsConfigurable" displayName="Git Redmine Jump"/>
+        <applicationConfigurable instance="com.monster.gitredminejump.SettingsConfigurable" displayName="Git Redmine Jump"/>
     </extensions>
 </idea-plugin>

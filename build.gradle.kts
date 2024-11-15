@@ -4,8 +4,8 @@ plugins {
     id("org.jetbrains.intellij") version "1.17.4"
 }
 
-group = "com.cloudpense"
-version = "2.0"
+group = "com.monster"
+version = "1.0"
 
 repositories {
     mavenCentral()

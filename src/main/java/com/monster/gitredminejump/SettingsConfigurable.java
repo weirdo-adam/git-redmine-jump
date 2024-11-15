@@ -1,4 +1,4 @@
-package com.cloudpense.gitredminejump;
+package com.monster.gitredminejump;
 
 import com.intellij.openapi.options.Configurable;
 import org.jetbrains.annotations.Nullable;

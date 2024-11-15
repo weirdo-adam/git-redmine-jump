@@ -1,4 +1,4 @@
-package com.cloudpense.gitredminejump;
+package com.monster.gitredminejump;
 
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
