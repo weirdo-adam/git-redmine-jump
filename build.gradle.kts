@@ -39,6 +39,6 @@ tasks {
     }
 
     publishPlugin {
-        token.set(System.getenv("GIT_REDMINE_JUMP_TOKEN"))
+        token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
