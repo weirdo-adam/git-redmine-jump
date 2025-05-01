@@ -39,7 +39,7 @@ public class GitRedmineJumpAction extends AnAction {
         // 提取任务编号
         String taskId = extractTaskId(branchName);
         if (taskId == null) {
-            showNotification(project, "Error", "No task ID found in branch name.", NotificationType.WARNING);
+            showNotification(project, "No task ID found in branch name.", NotificationType.WARNING);
             return;
         }
 
@@ -57,7 +57,7 @@ public class GitRedmineJumpAction extends AnAction {
         try {
             Desktop.getDesktop().browse(new URI(fullUrl)); // 打开系统默认浏览器
         } catch (Exception ex) {
-            showNotification(project, "Error",  "Failed to open browser: " + ex.getMessage(),
+            showNotification(project, "Failed to open browser: " + ex.getMessage(),
                     NotificationType.ERROR);
             ex.printStackTrace();
         }
@@ -73,10 +73,10 @@ public class GitRedmineJumpAction extends AnAction {
         return null;
     }
 
-    private void showNotification(Project project, String title, String content, NotificationType type) {
+    private void showNotification(Project project, String content, NotificationType type) {
         Notification notification = NotificationGroupManager.getInstance()
                 .getNotificationGroup("Git Redmine Jump Notifications")
-                .createNotification(title, content, type);
+                .createNotification("Error", content, type);
         notification.notify(project);
     }
 }
