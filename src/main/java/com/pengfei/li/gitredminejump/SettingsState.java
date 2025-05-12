@@ -1,4 +1,4 @@
-package com.monster.gitredminejump;
+package com.pengfei.li.gitredminejump;
 
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.Service;

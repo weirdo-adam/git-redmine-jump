@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.intellij") version "1.17.4"
 }
 
-group = "com.monster"
+group = "com.pengfei.li"
 version = "3.1"
 
 repositories {

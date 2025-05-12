@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.monster.gitredminejump</id>
+    <id>com.pengfei.li.gitredminejump</id>
     <name>Git Redmine Jump</name>
     <vendor email="L_PENGF@163.com" url="https://github.com/weirdo-adam/git-redmine-jump">pengfei.li</vendor>
     <description>Extract the Redmine task number from the current Git branch name and jump to the corresponding Redmine task page. Keyboard shortcut alt + j or option + j Quick jump
@@ -12,7 +12,7 @@
 
     <!-- 动作扩展 -->
     <actions>
-        <action id="GitRedmineJumpAction" class="com.monster.gitredminejump.GitRedmineJumpAction"
+        <action id="GitRedmineJumpAction" class="com.pengfei.li.gitredminejump.GitRedmineJumpAction"
                 text="Go to Redmine Task" description="Open redmine task page">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <keyboard-shortcut keymap="$default" first-keystroke="alt j"/>
@@ -21,7 +21,7 @@
 
     <!-- 插件设置扩展 -->
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable instance="com.monster.gitredminejump.SettingsConfigurable"
+        <applicationConfigurable instance="com.pengfei.li.gitredminejump.SettingsConfigurable"
                                  displayName="Git Redmine Jump"/>
     </extensions>
 </idea-plugin>
