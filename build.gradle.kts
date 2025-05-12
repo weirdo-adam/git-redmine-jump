@@ -15,7 +15,8 @@ intellij {
     version.set("2023.2.8")
     type.set("IC") // Target IDE Platform
 
-    plugins.set(listOf("Git4Idea", "org.jetbrains.kotlin"))}
+    plugins.set(listOf("Git4Idea", "org.jetbrains.kotlin"))
+}
 
 tasks {
     // Set the JVM compatibility versions
