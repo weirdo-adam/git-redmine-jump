@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.pengfei.li"
-version = "3.1.1"
+version = "3.2.0"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("232")
-        untilBuild.set("252.*")
+        untilBuild.set("253.*")
     }
 
     signPlugin {
